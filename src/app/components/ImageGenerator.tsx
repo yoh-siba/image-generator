@@ -108,16 +108,16 @@ export default function ImageGenerator() {
             </div>
             
             <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 mb-2">画像URL:</p>
+              <p className="text-sm text-gray-600 mb-2">画像データ:</p>
               <div className="flex gap-2">
                 <input
                   type="text"
-                  value={`${window.location.origin}${generatedImage.url}`}
+                  value={generatedImage.url}
                   readOnly
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm"
                 />
                 <button
-                  onClick={() => copyToClipboard(`${window.location.origin}${generatedImage.url}`)}
+                  onClick={() => copyToClipboard(generatedImage.url)}
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
                 >
                   コピー

@@ -1,6 +1,4 @@
 import { GoogleGenAI } from "@google/genai";
-import * as fs from "node:fs";
-import * as path from "node:path";
 
 export interface GeneratedImage {
   id: string;
@@ -32,23 +30,13 @@ export async function generateImage(prompt: string): Promise<GeneratedImage> {
   if (!imageBytes) {
     throw new Error("Image bytes are missing");
   }
-  const buffer = Buffer.from(imageBytes, "base64");
   
   const id = Date.now().toString();
-  const publicDir = path.join(process.cwd(), "public", "generated");
-  
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir, { recursive: true });
-  }
-  
-  const fileName = `image-${id}.png`;
-  const filePath = path.join(publicDir, fileName);
-  
-  fs.writeFileSync(filePath, buffer);
+  const dataUrl = `data:image/png;base64,${imageBytes}`;
   
   return {
     id,
-    url: `/generated/${fileName}`,
+    url: dataUrl,
     prompt,
     createdAt: new Date(),
   };
