@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 画像生成アプリ (Image Generator)
 
-## Getting Started
+Google Geminiを使用したNext.jsベースの画像生成アプリケーションです。
 
-First, run the development server:
+## 機能
+
+- テキストプロンプトから画像を生成
+- 認証機能付き
+- 生成画像のURL取得とコピー機能
+- レスポンシブデザイン
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 15.3.5
+- **言語**: TypeScript
+- **スタイリング**: Tailwind CSS
+- **AI API**: Google Gemini API
+- **その他**: React 19
+
+## セットアップ
+
+### 前提条件
+
+- Node.js 18以上
+- npm または yarn
+
+### インストール
+
+1. リポジトリをクローン
+```bash
+git clone <repository-url>
+cd image-generator
+```
+
+2. 依存関係をインストール
+```bash
+npm install
+```
+
+3. 環境変数を設定
+```bash
+cp .env.example .env.local
+```
+
+Google Gemini APIキーを`.env.local`に設定してください。
+
+### 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000)でアプリケーションが起動します。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用方法
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. アプリケーションにアクセス
+2. ログイン画面でログイン
+3. プロンプトを入力して画像を生成
+4. 生成された画像のURLをコピー可能
 
-## Learn More
+## プロジェクト構造
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/          # 認証API
+│   │   └── generate/      # 画像生成API
+│   ├── components/
+│   │   ├── ImageGenerator.tsx  # メイン画像生成コンポーネント
+│   │   └── LoadingAnimation.tsx # ローディングアニメーション
+│   ├── lib/
+│   │   ├── auth.ts        # 認証ロジック
+│   │   └── imagen.ts      # Gemini API統合
+│   ├── generate/          # 画像生成ページ
+│   ├── login/             # ログインページ
+│   └── globals.css        # グローバルスタイル
+└── public/
+    └── generated/         # 生成された画像の保存場所
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## スクリプト
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - 開発サーバーを起動（Turbopack使用）
+- `npm run build` - 本番用ビルド
+- `npm run start` - 本番サーバーを起動
+- `npm run lint` - ESLintでコードをチェック
 
-## Deploy on Vercel
+## 注意事項
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Google Gemini APIキーが必要です
+- 画像生成には時間がかかる場合があります
+- プロンプトは1000文字以内で入力してください
