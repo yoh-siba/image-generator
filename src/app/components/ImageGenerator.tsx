@@ -43,12 +43,23 @@ export default function ImageGenerator() {
     }
   };
 
-  const copyToClipboard = async (text: string) => {
+  const copyImageToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(text);
-      alert('URLをコピーしました！');
+      // Base64データURLをBlobに変換
+      const response = await fetch(generatedImage!.url);
+      const blob = await response.blob();
+      
+      // クリップボードに画像をコピー
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [blob.type]: blob
+        })
+      ]);
+      
+      alert('画像をコピーしました！');
     } catch (err) {
-      console.error('コピーに失敗しました:', err);
+      console.error('画像のコピーに失敗しました:', err);
+      alert('画像のコピーに失敗しました');
     }
   };
 
@@ -107,22 +118,13 @@ export default function ImageGenerator() {
               />
             </div>
             
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600 mb-2">画像データ:</p>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={generatedImage.url}
-                  readOnly
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm"
-                />
-                <button
-                  onClick={() => copyToClipboard(generatedImage.url)}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
-                >
-                  コピー
-                </button>
-              </div>
+            <div className="text-center">
+              <button
+                onClick={copyImageToClipboard}
+                className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
+              >
+                画像をコピー
+              </button>
             </div>
           </div>
         )}
