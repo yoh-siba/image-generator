@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import LoadingAnimation from './LoadingAnimation';
 import { GeneratedImage } from '@/app/lib/imagen';
 
@@ -96,10 +97,13 @@ export default function ImageGenerator() {
         {generatedImage && !isGenerating && (
           <div className="mt-8 space-y-4">
             <div className="text-center">
-              <img
+              <Image
                 src={generatedImage.url}
                 alt="生成された画像"
+                width={800}
+                height={600}
                 className="max-w-full h-auto rounded-lg shadow-lg mx-auto"
+                style={{ width: 'auto', height: 'auto' }}
               />
             </div>
             

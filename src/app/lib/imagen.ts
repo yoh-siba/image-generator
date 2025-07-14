@@ -20,8 +20,18 @@ export async function generateImage(prompt: string): Promise<GeneratedImage> {
     },
   });
 
+  if (!response.generatedImages || response.generatedImages.length === 0) {
+    throw new Error("No images were generated");
+  }
+  
   const generatedImage = response.generatedImages[0];
+  if (!generatedImage.image) {
+    throw new Error("Generated image data is missing");
+  }
   const imageBytes = generatedImage.image.imageBytes;
+  if (!imageBytes) {
+    throw new Error("Image bytes are missing");
+  }
   const buffer = Buffer.from(imageBytes, "base64");
   
   const id = Date.now().toString();

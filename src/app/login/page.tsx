@@ -30,7 +30,7 @@ export default function LoginPage() {
       } else {
         setError('パスワードが間違っています');
       }
-    } catch (err) {
+    } catch {
       setError('ログインに失敗しました');
     } finally {
       setIsLoading(false);
